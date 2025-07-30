@@ -2,6 +2,7 @@ from app.log import create_logger, reload_logger_level
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from app.project.get_oauth_token import oauth_router
 
 logger = create_logger(__name__)
 
@@ -27,7 +28,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content={"detail": exc.errors()},
     )
 
-app.include_router(proxy_router)
+app.include_router(oauth_router)
 
 @app.get("/")
 async def read_root():
