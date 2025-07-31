@@ -1,0 +1,4 @@
+[log]
+path = '/www/wwwlogs/python/api2_hnzzzsw/gunicorn_error.log'
+level = 'info'
+format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

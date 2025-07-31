@@ -2,6 +2,7 @@ from app.log import create_logger, reload_logger_level
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from app.project.get_oauth_token import oauth_router
 
 logger = create_logger(__name__)
@@ -29,6 +30,16 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
 
 app.include_router(oauth_router)
+
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def read_root():
