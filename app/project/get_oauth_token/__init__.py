@@ -1,5 +1,9 @@
 from .router import oauth_router
-from . import baidu  # 导入 baidu 模块以注册路由
+from .baidu import baidu_oauth_router  
+from .douyin import douyin_oauth_router
+
+oauth_router.include_router(baidu_oauth_router)
+oauth_router.include_router(douyin_oauth_router)
 
 __all__ = [
     "oauth_router"
