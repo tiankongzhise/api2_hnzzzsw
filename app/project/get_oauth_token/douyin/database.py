@@ -46,5 +46,5 @@ def update_douyin_oauth_credentials(oauth_credentials: DouyinOauthCredentials):
                 logger.info_database(f"controler_id:{oauth_credentials.controler_id},controler_name:{oauth_credentials.controler_name} is insert")
         return db_operation_result
     except Exception as e:
-        logger.error_database(f"update_douyin_oauth_credentials error:{e}")
+        logger.error(f"update_douyin_oauth_credentials error:{e}")
         return 'error'
