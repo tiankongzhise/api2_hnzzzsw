@@ -13,8 +13,8 @@ format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     [oauth.douyin]
         access_token_query_url = "https://api.oceanengine.com/open_api/oauth2/access_token/"
         [oauth.douyin.name_id_map]
-            "1817570459492448" = "ZFF08"
-            "ZFF08" = "1817570459492448"
+            "1800168496063497" = "ZFF08"
+            "ZFF08" = "1800168496063497"
 
 [retry]
 max_retry = 3
