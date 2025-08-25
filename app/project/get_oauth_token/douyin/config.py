@@ -27,6 +27,7 @@ class DouyinConfigManager:
     def http_config(self):
         return self._config.get("http_config",{})
     
+    @property
     def access_token_query_url(self):
         return self._config.get("access_token_query_url")
     
