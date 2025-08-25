@@ -1,6 +1,6 @@
 from tk_db_utils import get_db_client
 from .config import get_douyin_config
-from .schemas import BaseTableEnhanced,OauthCredentialsTable
+from .schemas import BaseTableEnhanced, OauthCredentialsTable
 from sqlalchemy import select
 from .models import DouyinOauthCredentials
 from .logger import logger,logger_wrapper
