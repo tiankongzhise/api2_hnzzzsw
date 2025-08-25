@@ -29,7 +29,7 @@ class DouyinConfigManager:
     
     @property
     def access_token_query_url(self):
-        return self._config.get("access_token_query_url")
+        return self._config['oauth']['douyin']['access_token_query_url']
     
     def mapping_name_id(self,item):
         return self._config['oauth']['baidu']['name_id_map'].get(str(item))
