@@ -144,7 +144,7 @@ async def transform_auth_code_to_access_token(params:BaiduOauthParams):
         )
     """
     logger.info('transform_auth_code_to_access_token is runing!')
-    secret_key = os.getenv('BAIDU_OAUTH_SECRET_KEY')
+    secret_key = os.getenv('BAIDU_APP_SECRET_KEY')
     if not secret_key:
         logger.error(f"transform_auth_code_to_access_token  secret_key is None")
         return TransformAuthCodeResponse(

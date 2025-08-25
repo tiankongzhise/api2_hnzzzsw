@@ -53,7 +53,7 @@ def douyin_oauth(callback_params:DouyinCallbackParams):
     params = DouyinOauth2AccessTokenParams(
         app_id=callback_params.app_id,
         auth_code=callback_params.auth_code,
-        secret=os.getenv("DOUYIN_SECRET"),
+        secret=os.getenv("DOUYIN_APP_SECRET_KEY"),
     )
     resp = http_client.oauth2_access_token(params)
     return _Response2DTO(resp)
