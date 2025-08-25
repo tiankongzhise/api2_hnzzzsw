@@ -21,7 +21,7 @@ def _Response2DTO(responese:dict) -> DouyinAuthResponse:
             message=error_msg,
         )
     # 检查旧格式的错误响应
-    if 'code' in responese and responese['code'] != '0':
+    if 'code' in responese and responese['code'] != 0:
         return DouyinAuthResponse(
             status='error',
             message=responese.get('message', '未知错误'),
