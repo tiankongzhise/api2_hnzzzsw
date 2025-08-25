@@ -14,7 +14,9 @@ async def get_douyin_oauth_token(request: Request):
     oauth_result = douyin_oauth(params)
     if oauth_result.status == 'success':
         db_operation_result = update_douyin_oauth_credentials(oauth_result.data)
-    logger.info_service(f'抖音授权认证数据库插入结果为:{db_operation_result}')
+        logger.info_service(f'抖音授权认证数据库插入结果为:{db_operation_result}')
+    else:
+        logger.error(f'抖音授权认证失败,失败原因:{oauth_result.message}')
     return oauth_result
 
 

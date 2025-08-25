@@ -24,7 +24,7 @@ def _Response2DTO(responese:dict) -> DouyinAuthResponse:
     if 'code' in responese and responese['code'] != '0':
         return DouyinAuthResponse(
             status='error',
-            message=responese.get('msg', '未知错误'),
+            message=responese.get('message', '未知错误'),
         )
     # 检查成功响应格式
     if 'data' not in responese:
