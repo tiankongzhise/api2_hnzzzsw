@@ -1,4 +1,3 @@
-from ossaudiodev import control_labels
 from .logger import logger,logger_wrapper
 from .kernel import DouyinHttpClient
 from .models import DouyinCallbackParams,DouyinAuthResponse,DouyinOauthCredentials,DouyinOauth2AccessTokenParams
@@ -7,10 +6,11 @@ from .config import get_douyin_config
 import os
 from datetime import datetime, timedelta
 
-
+@logger_wrapper(level="INFO_UTILS")
 def _calculate_expires_time(time_delta: int) -> str:
     return (datetime.now() + timedelta(seconds=time_delta)).strftime('%Y-%m-%d %H:%M:%S')
 
+@logger_wrapper(level="INFO_CORE")
 def _Response2DTO(responese:dict) -> DouyinAuthResponse:
     if responese['code'] != 0:
         return DouyinAuthResponse(
@@ -47,7 +47,7 @@ def _Response2DTO(responese:dict) -> DouyinAuthResponse:
     
 
     
-
+@logger_wrapper(level="INFO_CORE")
 def douyin_oauth(callback_params:DouyinCallbackParams):
     http_client = DouyinHttpClient()
     params = DouyinOauth2AccessTokenParams(
