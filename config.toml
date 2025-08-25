@@ -1,6 +1,6 @@
 [log]
 path = '/www/wwwlogs/python/api2_hnzzzsw/gunicorn_error.log'
-level = 'debug'
+level = 'info'
 format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 
@@ -50,7 +50,7 @@ write_timeout = 30         # 写入超时时间
 name = "api2"
 
 # 日志级别 (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-level = "INFO_SERVICE"
+level = "DEBUG"
 
 
 # 日志格式

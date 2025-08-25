@@ -17,3 +17,4 @@ async def get_douyin_oauth_token(request: Request):
     logger.info_service(f'抖音授权认证数据库插入结果为:{db_operation_result}')
     return oauth_result
 
+

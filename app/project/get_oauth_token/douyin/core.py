@@ -12,7 +12,7 @@ def _calculate_expires_time(time_delta: int) -> str:
 
 @logger_wrapper(level="INFO_CORE")
 def _Response2DTO(responese:dict) -> DouyinAuthResponse:
-    if responese['code'] != 0:
+    if responese['code'] != '0':
         return DouyinAuthResponse(
             status='error',
             msg=responese['msg'],
