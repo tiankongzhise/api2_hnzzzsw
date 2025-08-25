@@ -12,13 +12,38 @@ def _calculate_expires_time(time_delta: int) -> str:
 
 @logger_wrapper(level="INFO_CORE")
 def _Response2DTO(responese:dict) -> DouyinAuthResponse:
-    if responese['code'] != '0':
+    # 检查响应是否包含错误信息
+    if 'message' in responese and responese['message'] == 'error':
+        # 处理错误响应格式: {'data': {'error_code': 4, 'description': '参数错误'}, 'message': 'error'}
+        error_msg = responese.get('data', {}).get('description', '未知错误')
         return DouyinAuthResponse(
             status='error',
-            msg=responese['msg'],
+            msg=error_msg,
         )
+    # 检查旧格式的错误响应
+    if 'code' in responese and responese['code'] != '0':
+        return DouyinAuthResponse(
+            status='error',
+            msg=responese.get('msg', '未知错误'),
+        )
+    # 检查成功响应格式
+    if 'data' not in responese:
+        return DouyinAuthResponse(
+            status='error',
+            msg='响应格式错误：缺少data字段',
+        )
+    
+    data = responese['data']
+    required_fields = ['advertiser_ids', 'access_token', 'expires_in', 'refresh_token', 'refresh_token_expires_in']
+    for field in required_fields:
+        if field not in data:
+            return DouyinAuthResponse(
+                status='error',
+                msg=f'响应格式错误：缺少{field}字段',
+            )
+    
     douying_config = get_douyin_config()
-    advertiser_ids = responese['data']['advertiser_ids']
+    advertiser_ids = data['advertiser_ids']
     control_name = ''
     control_id = ''
     for id in advertiser_ids:
@@ -36,10 +61,10 @@ def _Response2DTO(responese:dict) -> DouyinAuthResponse:
         status='success',
         msg='success',
         data=DouyinOauthCredentials(
-            access_token=responese['data']['access_token'],
-            expires_time=_calculate_expires_time(responese['data']['expires_in']),
-            refresh_token=responese['data']['refresh_token'],
-            refresh_expires_time=_calculate_expires_time(responese['data']['refresh_token_expires_in']),
+            access_token=data['access_token'],
+            expires_time=_calculate_expires_time(data['expires_in']),
+            refresh_token=data['refresh_token'],
+            refresh_expires_time=_calculate_expires_time(data['refresh_token_expires_in']),
             controler_id=control_id,
             controler_name=control_name,
         )

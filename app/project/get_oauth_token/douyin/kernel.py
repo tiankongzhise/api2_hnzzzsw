@@ -18,7 +18,7 @@ class DouyinHttpClient(object):
     @logger_wrapper(level="INFO_KERNEL")
     def oauth2_access_token(self,params:DouyinOauth2AccessTokenParams):
         url = self._douyin_config.access_token_query_url
-        logger.debug(f'url:{url},params:{params.model_dump()}')
-        resp = self._http_client.post(url,data = params.model_dump())
+        logger.debug(f'url:{url},params:{[params.model_dump()]}')
+        resp = self._http_client.post(url,json = params.model_dump())
         resp.raise_for_status()
         return resp.json()

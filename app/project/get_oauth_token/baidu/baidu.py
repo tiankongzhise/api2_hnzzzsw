@@ -90,15 +90,37 @@ async def _transform_auth_code_to_access_token(secret_key:str,params:BaiduOauthP
             
             logger.info("状态码为200，开始解析响应数据")
             response_json = response.json()
-            if response_json['code'] != 0:
+            # 安全检查响应格式
+            if 'code' not in response_json:
                 return TransformAuthCodeResponse(
                     status="query error",
-                    message=f"将auth_code转换为access_token失败,query fail,faile reason:{response_json['message']}",
+                    message=f"将auth_code转换为access_token失败,响应格式错误：缺少code字段,response:{response_json}",
+                    data=None
+                )
+            if response_json['code'] != 0:
+                error_message = response_json.get('message', '未知错误')
+                return TransformAuthCodeResponse(
+                    status="query error",
+                    message=f"将auth_code转换为access_token失败,query fail,faile reason:{error_message}",
                     data=None
                 )
             
+            # 检查成功响应的data字段
+            if 'data' not in response_json:
+                return TransformAuthCodeResponse(
+                    status="query error",
+                    message=f"将auth_code转换为access_token失败,响应格式错误：缺少data字段,response:{response_json}",
+                    data=None
+                )
             
-            response_data = BaiduAccessToken(**response_json['data'])
+            try:
+                response_data = BaiduAccessToken(**response_json['data'])
+            except Exception as e:
+                return TransformAuthCodeResponse(
+                    status="query error",
+                    message=f"将auth_code转换为access_token失败,数据格式错误：{e},response_data:{response_json['data']}",
+                    data=None
+                )
             
             return TransformAuthCodeResponse(
                 status="success",
