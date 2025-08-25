@@ -11,7 +11,7 @@ format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
             "64339991" = "金蛛账户中心"
             "金蛛账户中心" = "64339991"
     [oauth.douyin]
-        access_token_query_url = "https://open.douyin.com/oauth/access_token/"
+        access_token_query_url = "https://api.oceanengine.com/open_api/oauth2/access_token/"
         [oauth.douyin.name_id_map]
             "1817570459492448" = "ZFF08"
             "ZFF08" = "1817570459492448"

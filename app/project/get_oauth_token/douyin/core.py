@@ -18,19 +18,19 @@ def _Response2DTO(responese:dict) -> DouyinAuthResponse:
         error_msg = responese.get('data', {}).get('description', '未知错误')
         return DouyinAuthResponse(
             status='error',
-            msg=error_msg,
+            message=error_msg,
         )
     # 检查旧格式的错误响应
     if 'code' in responese and responese['code'] != '0':
         return DouyinAuthResponse(
             status='error',
-            msg=responese.get('msg', '未知错误'),
+            message=responese.get('msg', '未知错误'),
         )
     # 检查成功响应格式
     if 'data' not in responese:
         return DouyinAuthResponse(
             status='error',
-            msg='响应格式错误：缺少data字段',
+            message='响应格式错误：缺少data字段',
         )
     
     data = responese['data']
@@ -39,7 +39,7 @@ def _Response2DTO(responese:dict) -> DouyinAuthResponse:
         if field not in data:
             return DouyinAuthResponse(
                 status='error',
-                msg=f'响应格式错误：缺少{field}字段',
+                message=f'响应格式错误：缺少{field}字段',
             )
     
     douying_config = get_douyin_config()
@@ -55,11 +55,11 @@ def _Response2DTO(responese:dict) -> DouyinAuthResponse:
     if control_name == '':
         return DouyinAuthResponse(
             status='error',
-            msg=f'未找到抖音巨量超级管理员,请检查配置文件,返回的advertiser_ids:{advertiser_ids}'
+            message=f'未找到抖音巨量超级管理员,请检查配置文件,返回的advertiser_ids:{advertiser_ids}'
         )
     return DouyinAuthResponse(
         status='success',
-        msg='success',
+        message='success',
         data=DouyinOauthCredentials(
             access_token=data['access_token'],
             expires_time=_calculate_expires_time(data['expires_in']),

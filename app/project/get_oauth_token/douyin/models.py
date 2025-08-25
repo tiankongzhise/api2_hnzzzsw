@@ -23,4 +23,4 @@ class DouyinOauthCredentials(BaseModel):
 class DouyinAuthResponse(BaseModel):
     status:str
     message:str
-    data:DouyinOauthCredentials|None
+    data:DouyinOauthCredentials|None = None
