@@ -32,7 +32,7 @@ class DouyinConfigManager:
         return self._config['oauth']['douyin']['access_token_query_url']
     
     def mapping_name_id(self,item):
-        return self._config['oauth']['baidu']['name_id_map'].get(str(item))
+        return self._config['oauth']['douyin']['name_id_map'].get(str(item))
     
     
     def reload_config(self,config_path: str|Path|None = "config.toml"):
